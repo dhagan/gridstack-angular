@@ -41,11 +41,10 @@
         <h1>gridstack-angular demo</h1>
         <p>{{widgets0}}</p>
         <p>{{widgets1}}</p>
-        <p>{{widgets2}}</p>
         <div>
-            <a class="btn btn-primary" ng-click="addWidget()" href="#">Add Widget</a>
-            <a class="btn btn-primary" ng-click="removeWidget()" href="#">Remove Widget</a>
-            <a class="btn btn-primary" ng-click="moveWidget()" href="#">Move Widget</a>
+            <a class="btn btn-primary" ng-click="addWidget0()" href="#">Add Widget 0 </a>
+            <a class="btn btn-primary" ng-click="removeWidget0()" href="#">Remove Widget 0 </a>
+            <a class="btn btn-primary" ng-click="moveWidget0()" href="#">Move Widget 0</a>
         </div>
         <br>
         <div class="row">
@@ -62,16 +61,6 @@
             <div class="col-xs-4 col-md-4">
                 <div gridstack class="grid-stack grid-stack-4 grid1" options="options" on-change="onChange(event,items)" on-added="onAdded(event,items)"  on-drag-start="onDragStart(event,ui)" on-drag-stop="onDragStop(event,ui)" on-resize-start="onResizeStart(event,ui)" on-resize-stop="onResizeStop(event,ui)">
                     <div gridstack-item ng-repeat="w in widgets1" class="grid-stack-item" gs-item-x="w.x" gs-item-y="w.y"
-                         gs-item-width="w.width" gs-item-height="w.height" gs-item-autopos="1" on-item-added="onItemAdded(item)" on-item-removed="onItemRemoved(item)">
-                        <div class="grid-stack-item-content">
-                            <a class="btn btn-primary" ng-click="removeWidget(w)" href="#">{{w.title}}</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-4 col-md-4">
-                <div gridstack class="grid-stack grid-stack-4 grid2" options="options" on-change="onChange(event,items)" on-added="onAdded(event,items)"  on-drag-start="onDragStart(event,ui)" on-drag-stop="onDragStop(event,ui)" on-resize-start="onResizeStart(event,ui)" on-resize-stop="onResizeStop(event,ui)">
-                    <div gridstack-item ng-repeat="w in widgets2" class="grid-stack-item" gs-item-x="w.x" gs-item-y="w.y"
                          gs-item-width="w.width" gs-item-height="w.height" gs-item-autopos="1" on-item-added="onItemAdded(item)" on-item-removed="onItemRemoved(item)">
                         <div class="grid-stack-item-content">
                             <a class="btn btn-primary" ng-click="removeWidget(w)" href="#">{{w.title}}</a>
@@ -96,9 +85,9 @@
         var app = angular.module('GridStack', ['gridstack-angular']).
           controller('DemoCtrl', function($scope, $log) {
 
-            $scope.widgets0 = [{ x:0, y:0, width:4, height:1, title: 'one'}, { x:0, y:0, width:4, height:1, title: 'two' }];
+          var widget_id = 1;
+            $scope.widgets0 = [{ wid: widget_id++, x:0, y:0, width:4, height:1, title: 'one'}, { wid: widget_id++, x:0, y:0, width:4, height:1, title: 'two' }];
             $scope.widgets1 = [];
-            $scope.widgets2 = [];
 
 //            $scope.options = {
 //                cellHeight: 200,
@@ -114,19 +103,20 @@
             acceptWidgets: '.grid-stack-item'
           };
 
-            $scope.addWidget = function() {
+
+            $scope.addWidget0 = function() {
                 //var newWidget = { x:0, y:0, width:1, height:1 };
-              var newWidget = { x: 0, y: 0, width: 4, height: 1, title: 'Your new task' };
+              var newWidget = { wid: widget_id++, x: 0, y: 0, width: 4, height: 1, title: 'Your new task' };
                 $scope.widgets0.push(newWidget);
             };
 
-            $scope.moveWidget = function() {
+            $scope.moveWidget0 = function() {
                 $scope.widgets0[0].x = 1;
                 $scope.widgets0[0].width = 2;
                 $scope.widgets0[0].height = 2;
             };
 
-            $scope.removeWidget = function(w) {
+            $scope.removeWidget0 = function(w) {
                 var index = $scope.widgets0.indexOf(w);
                 $scope.widgets0.splice(index, 1);
             };
@@ -143,15 +133,27 @@
             $log.log(event);
             $log.log(items);
             if (!items[0]._id) {
-              //console.log('pushing to widgets1');
-              //$scope.widgets1.push(items[0]);
+
               var newItem = angular.copy(items[0]);
               newItem.title =  newItem.el[0].innerText;
+              // remove widget from DOM
               var _grid = items[0]._grid;
               _grid.removeWidget(items[0].el);
-              console.log('pushing to widgets1');
-              $scope.widgets1.push(newItem);
 
+              // add to angular model
+              console.log('pushing to widgets1');
+              var newWidget = {
+                wid: widget_id++,
+                x: newItem.x,
+                y: newItem.y,
+                height: newItem.height,
+                width: newItem.width,
+                title: newItem.title
+              };
+              $scope.widgets1.push(newWidget);
+
+              // console.log($scope.widgets0);
+              // console.log($scope.widgets1);
             }
           };
 
@@ -177,6 +179,7 @@
 
             $scope.onItemRemoved = function(item) {
                 $log.log("onItemRemoved item: "+item);
+                // console.log(item);
             };
 
         });
