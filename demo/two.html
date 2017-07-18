@@ -11,8 +11,8 @@
     <title>gridstack-angular demo</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="bower_components/gridstack/dist/gridstack.css"/>
-    <link rel="stylesheet" href="bower_components/gridstack/dist/gridstack-extra.css"/>
+    <link rel="stylesheet" href="lib/gridstack/dist/gridstack.css"/>
+    <link rel="stylesheet" href="lib/gridstack/dist/gridstack-extra.css"/>
 
     <style type="text/css">
         .grid0 {
@@ -29,7 +29,6 @@
             min-height: 500px;
 
         }
-
         .grid-stack-item-content {
             color: #2c3e50;
             text-align: center;
@@ -40,7 +39,7 @@
 <body ng-app="GridStack" ng-controller="DemoCtrl">
     <div class="container-fluid">
         <h1>gridstack-angular demo</h1>
-        <p>{{widgets}}</p>
+        <p>{{widgets0}}</p>
         <div>
             <a class="btn btn-primary" ng-click="addWidget()" href="#">Add Widget</a>
             <a class="btn btn-primary" ng-click="removeWidget()" href="#">Remove Widget</a>
@@ -48,8 +47,8 @@
         </div>
         <br>
         <div class="row">
-            <div class="col-md-4">
-                <div gridstack class="grid-stack grid-stack-4 grid0" options="options" on-change="onChange(event,items)" on-drag-start="onDragStart(event,ui)" on-drag-stop="onDragStop(event,ui)" on-resize-start="onResizeStart(event,ui)" on-resize-stop="onResizeStop(event,ui)">
+            <div class="col-xs-4 col-md-4">
+                <div gridstack class="grid-stack grid-stack-4 grid0" options="options" on-change="onChange(event,items)" on-added="onAdded(event,items)" on-drag-start="onDragStart(event,ui)" on-drag-stop="onDragStop(event,ui)" on-resize-start="onResizeStart(event,ui)" on-resize-stop="onResizeStop(event,ui)">
                     <div gridstack-item ng-repeat="w in widgets0" class="grid-stack-item" gs-item-x="w.x" gs-item-y="w.y"
                          gs-item-width="w.width" gs-item-height="w.height" gs-item-autopos="1" on-item-added="onItemAdded(item)" on-item-removed="onItemRemoved(item)">
                             <div class="grid-stack-item-content">
@@ -58,8 +57,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div gridstack class="grid-stack grid-stack-4 grid1" options="options" on-change="onChange(event,items)" on-drag-start="onDragStart(event,ui)" on-drag-stop="onDragStop(event,ui)" on-resize-start="onResizeStart(event,ui)" on-resize-stop="onResizeStop(event,ui)">
+            <div class="col-xs-4 col-md-4">
+                <div gridstack class="grid-stack grid-stack-4 grid1" options="options" on-change="onChange(event,items)" on-added="onAdded(event,items)"  on-drag-start="onDragStart(event,ui)" on-drag-stop="onDragStop(event,ui)" on-resize-start="onResizeStart(event,ui)" on-resize-stop="onResizeStop(event,ui)">
                     <div gridstack-item ng-repeat="w in widgets1" class="grid-stack-item" gs-item-x="w.x" gs-item-y="w.y"
                          gs-item-width="w.width" gs-item-height="w.height" gs-item-autopos="1" on-item-added="onItemAdded(item)" on-item-removed="onItemRemoved(item)">
                         <div class="grid-stack-item-content">
@@ -68,8 +67,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div gridstack class="grid-stack grid-stack-4 grid2" options="options" on-change="onChange(event,items)" on-drag-start="onDragStart(event,ui)" on-drag-stop="onDragStop(event,ui)" on-resize-start="onResizeStart(event,ui)" on-resize-stop="onResizeStop(event,ui)">
+            <div class="col-xs-4 col-md-4">
+                <div gridstack class="grid-stack grid-stack-4 grid2" options="options" on-change="onChange(event,items)" on-added="onAdded(event,items)"  on-drag-start="onDragStart(event,ui)" on-drag-stop="onDragStop(event,ui)" on-resize-start="onResizeStart(event,ui)" on-resize-stop="onResizeStop(event,ui)">
                     <div gridstack-item ng-repeat="w in widgets2" class="grid-stack-item" gs-item-x="w.x" gs-item-y="w.y"
                          gs-item-width="w.width" gs-item-height="w.height" gs-item-autopos="1" on-item-added="onItemAdded(item)" on-item-removed="onItemRemoved(item)">
                         <div class="grid-stack-item-content">
@@ -85,7 +84,8 @@
     <script src="bower_components/jquery-ui/jquery-ui.js"></script>
     <script src="bower_components/lodash/dist/lodash.min.js"></script>
     <script src="bower_components/angular/angular.min.js"></script>
-    <script src="bower_components/gridstack/dist/gridstack.js"></script>
+    <script src="lib/gridstack/dist/gridstack.js"></script>
+    <script src="lib/gridstack/dist/gridstack.jQueryUI.js"></script>
     <script src="../src/gridstack.controller.js"></script>
     <script src="../src/gridstack.directive.js"></script>
     <script src="../src/gridstackitem.directive.js"></script>
@@ -131,7 +131,20 @@
 
             $scope.onChange = function(event, items) {
                 $log.log("onChange event: "+event+" items:"+items);
+                //$log.log(event);
+                //$log.log(items);
             };
+
+            // DJH
+          $scope.onAdded = function (event, items) {
+            $log.log("onAdded event: " + event + " items:" + items);
+            $log.log(event);
+            $log.log(items);
+            if (!items[0]._id) {
+              console.log('pushing to widgets1');
+              $scope.widgets1.push(items[0]);
+            }
+          };
 
             $scope.onDragStart = function(event, ui) {
                 $log.log("onDragStart event: "+event+" ui:"+ui);

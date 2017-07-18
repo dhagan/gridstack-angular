@@ -11,14 +11,15 @@
     <title>Two grids demo</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../dist/gridstack.css"/>
-    <link rel="stylesheet" href="../dist/gridstack-extra.css"/>
+    <link rel="stylesheet" href="lib/gridstack/dist/gridstack.css"/>
+    <link rel="stylesheet" href="lib/gridstack/dist/gridstack-extra.css"/>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.0/jquery-ui.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.5.0/lodash.min.js"></script>
-    <script src="../dist/gridstack.js"></script>
+    <script src="lib/gridstack/dist/gridstack.js"></script>
+    <script src="lib/gridstack/dist/gridstack.jQueryUI.js"></script>
 
     <style type="text/css">
         #grid1 {
@@ -139,6 +140,13 @@
                 scroll: false,
                 appendTo: 'body'
             });
+
+//          $('.grid-stack').on('added', function(event, items) {
+//            for (var i = 0; i < items.length; i++) {
+//              console.log('item added');
+//              console.log(items[i]);
+//            }
+          });
         });
     </script>
 </body>
