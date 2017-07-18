@@ -41,7 +41,8 @@ app.directive('gridstackItem', ['$timeout', function($timeout) {
       var item = element.data('_gridstack_node');
       $timeout(function() {
         scope.onItemAdded({item: item});
-      });
+      }, 1);
+
 
       var propertyChanged = function(newVal, oldVal) {
         if(newVal != oldVal) {

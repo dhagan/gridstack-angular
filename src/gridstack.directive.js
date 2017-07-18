@@ -10,6 +10,7 @@ app.directive('gridstack', ['$timeout', function($timeout) {
     controller: 'GridstackController',
     scope: {
       onChange: '&',
+      onAdded: '&',
       onDragStart: '&',
       onDragStop: '&',
       onResizeStart: '&',
@@ -26,6 +27,14 @@ app.directive('gridstack', ['$timeout', function($timeout) {
         $timeout(function() {
           scope.$apply();
           scope.onChange({event: e, items: items});
+        });
+      });
+
+      element.on('added', function(e, items) {
+        //console.log('element.on(added)');
+        $timeout(function() {
+          scope.$apply();
+          scope.onAdded({event: e, items: items});
         });
       });
 
@@ -50,6 +59,13 @@ app.directive('gridstack', ['$timeout', function($timeout) {
           scope.onResizeStop({event: e, ui: ui});
         });
       });
+
+      // $('.grid-stack').on('added', function(event, items) {
+      //   for (var i = 0; i < items.length; i++) {
+      //     console.log('item added');
+      //     console.log(items[i]);
+      //   }
+      // });
 
     }
   };
