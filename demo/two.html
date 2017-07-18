@@ -40,6 +40,8 @@
     <div class="container-fluid">
         <h1>gridstack-angular demo</h1>
         <p>{{widgets0}}</p>
+        <p>{{widgets1}}</p>
+        <p>{{widgets2}}</p>
         <div>
             <a class="btn btn-primary" ng-click="addWidget()" href="#">Add Widget</a>
             <a class="btn btn-primary" ng-click="removeWidget()" href="#">Remove Widget</a>
@@ -52,7 +54,7 @@
                     <div gridstack-item ng-repeat="w in widgets0" class="grid-stack-item" gs-item-x="w.x" gs-item-y="w.y"
                          gs-item-width="w.width" gs-item-height="w.height" gs-item-autopos="1" on-item-added="onItemAdded(item)" on-item-removed="onItemRemoved(item)">
                             <div class="grid-stack-item-content">
-                                <a class="btn btn-primary" ng-click="removeWidget(w)" href="#">remove</a>
+                                <a class="btn btn-primary" ng-click="removeWidget(w)" href="#">{{w.title}}</a>
                             </div>
                     </div>
                 </div>
@@ -62,7 +64,7 @@
                     <div gridstack-item ng-repeat="w in widgets1" class="grid-stack-item" gs-item-x="w.x" gs-item-y="w.y"
                          gs-item-width="w.width" gs-item-height="w.height" gs-item-autopos="1" on-item-added="onItemAdded(item)" on-item-removed="onItemRemoved(item)">
                         <div class="grid-stack-item-content">
-                            <a class="btn btn-primary" ng-click="removeWidget(w)" href="#">remove</a>
+                            <a class="btn btn-primary" ng-click="removeWidget(w)" href="#">{{w.title}}</a>
                         </div>
                     </div>
                 </div>
@@ -72,7 +74,7 @@
                     <div gridstack-item ng-repeat="w in widgets2" class="grid-stack-item" gs-item-x="w.x" gs-item-y="w.y"
                          gs-item-width="w.width" gs-item-height="w.height" gs-item-autopos="1" on-item-added="onItemAdded(item)" on-item-removed="onItemRemoved(item)">
                         <div class="grid-stack-item-content">
-                            <a class="btn btn-primary" ng-click="removeWidget(w)" href="#">remove</a>
+                            <a class="btn btn-primary" ng-click="removeWidget(w)" href="#">{{w.title}}</a>
                         </div>
                     </div>
                 </div>
@@ -94,7 +96,7 @@
         var app = angular.module('GridStack', ['gridstack-angular']).
           controller('DemoCtrl', function($scope, $log) {
 
-            $scope.widgets0 = [{ x:0, y:0, width:4, height:1 }, { x:0, y:0, width:4, height:1 }];
+            $scope.widgets0 = [{ x:0, y:0, width:4, height:1, title: 'one'}, { x:0, y:0, width:4, height:1, title: 'two' }];
             $scope.widgets1 = [];
             $scope.widgets2 = [];
 
@@ -141,8 +143,15 @@
             $log.log(event);
             $log.log(items);
             if (!items[0]._id) {
+              //console.log('pushing to widgets1');
+              //$scope.widgets1.push(items[0]);
+              var newItem = angular.copy(items[0]);
+              newItem.title =  newItem.el[0].innerText;
+              var _grid = items[0]._grid;
+              _grid.removeWidget(items[0].el);
               console.log('pushing to widgets1');
-              $scope.widgets1.push(items[0]);
+              $scope.widgets1.push(newItem);
+
             }
           };
 
