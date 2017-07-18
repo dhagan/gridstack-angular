@@ -11,6 +11,7 @@ app.directive('gridstack', ['$timeout', function($timeout) {
     scope: {
       onChange: '&',
       onAdded: '&',
+      onRemoved: '&',
       onDragStart: '&',
       onDragStop: '&',
       onResizeStart: '&',
@@ -31,14 +32,24 @@ app.directive('gridstack', ['$timeout', function($timeout) {
       });
 
       element.on('added', function(e, items) {
-        //console.log('element.on(added)');
+        console.log('element.on(added)', e, items);
         $timeout(function() {
           scope.$apply();
           scope.onAdded({event: e, items: items});
         });
       });
 
-      element.on('dragstart', function(e, ui) {
+
+        element.on('removed', function(e, items) {
+            console.log('element.on(removed)', e, items);
+            $timeout(function() {
+                scope.$apply();
+                scope.onRemoved({event: e, items: items});
+            });
+        });
+
+
+        element.on('dragstart', function(e, ui) {
         scope.onDragStart({event: e, ui: ui});
       });
 
