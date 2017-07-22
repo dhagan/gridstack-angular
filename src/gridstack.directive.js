@@ -40,16 +40,16 @@ app.directive('gridstack', ['$timeout', function($timeout) {
       });
 
 
-        element.on('removed', function(e, items) {
-           //  console.log('element.on(removed)', e, items);
-            $timeout(function() {
-                scope.$apply();
-                scope.onRemoved({event: e, items: items});
-            });
+      element.on('removed', function(e, items) {
+        console.log('element.on(removed)', e, items);
+        $timeout(function() {
+          scope.$apply();
+          scope.onRemoved({event: e, items: items});
         });
+      });
 
 
-        element.on('dragstart', function(e, ui) {
+      element.on('dragstart', function(e, ui) {
         scope.onDragStart({event: e, ui: ui});
       });
 
