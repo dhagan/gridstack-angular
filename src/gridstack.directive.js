@@ -32,7 +32,7 @@ app.directive('gridstack', ['$timeout', function($timeout) {
       });
 
       element.on('added', function(e, items) {
-        console.log('element.on(added)', e, items);
+        // console.log('element.on(added)', e, items);
         $timeout(function() {
           scope.$apply();
           scope.onAdded({event: e, items: items});
@@ -41,7 +41,7 @@ app.directive('gridstack', ['$timeout', function($timeout) {
 
 
         element.on('removed', function(e, items) {
-            console.log('element.on(removed)', e, items);
+           //  console.log('element.on(removed)', e, items);
             $timeout(function() {
                 scope.$apply();
                 scope.onRemoved({event: e, items: items});

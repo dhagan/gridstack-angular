@@ -141,13 +141,21 @@
                 appendTo: 'body'
             });
 
-//          $('.grid-stack').on('added', function(event, items) {
-//            for (var i = 0; i < items.length; i++) {
-//              console.log('item added');
-//              console.log(items[i]);
-//            }
+          $('.grid-stack').on('added', function(event, items) {
+            for (var i = 0; i < items.length; i++) {
+              console.log('item added');
+              console.log(items[i]);
+            }
           });
-        });
+
+            $('.grid-stack').on('removed', function(event, items) {
+                for (var i = 0; i < items.length; i++) {
+                    console.log('item removed');
+                    console.log(items[i]);
+                    console.log(items[i]._grid.container.context.id);
+                }
+            });
+        })
     </script>
 </body>
 </html>

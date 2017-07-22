@@ -58,7 +58,7 @@
                  on-resize-start="onResizeStart(event,ui)" on-resize-stop="onResizeStop(event,ui)">
                 <div gridstack-item ng-repeat="w in widgets[0]" class="grid-stack-item" gs-item-id="w.wid" gs-item-x="w.x"
                      gs-item-y="w.y"
-                     gs-item-width="w.width" gs-item-height="w.height" gs-item-autopos="1"
+                     gs-item-width="w.width" gs-item-height="w.height"
                      on-item-added="onItemAdded(item)" on-item-removed="onItemRemoved(item)">
                     <div class="grid-stack-item-content">
                         <a class="btn btn-primary" ng-click="removeWidget0(w, 0)" href="#">{{w.title}}</a>
@@ -74,7 +74,7 @@
                  on-resize-stop="onResizeStop(event,ui)">
                 <div gridstack-item ng-repeat="w in widgets[1]" class="grid-stack-item" gs-item-id="w.wid" gs-item-x="w.x"
                      gs-item-y="w.y"
-                     gs-item-width="w.width" gs-item-height="w.height" gs-item-autopos="1"
+                     gs-item-width="w.width" gs-item-height="w.height"
                      on-item-added="onItemAdded(item)" on-item-removed="onItemRemoved(item)">
                     <div class="grid-stack-item-content">
                         <a class="btn btn-primary" ng-click="removeWidget1(w, 0)" href="#">{{w.title}}</a>
@@ -119,6 +119,7 @@
 
         $scope.options = {
             //animate: true,
+            oneColumnMode: true,
             disableResize: true,
             width: 4,
             cellHeight: 100,
@@ -153,52 +154,55 @@
 
         // DJH
         $scope.onAdded = function (event, items, gridNum) {
-            $log.log("onAdded event: " + event + " items:" + items);
-            $log.log(event);
-            $log.log(items);
+            $log.log("onAdded event: ",  event , " items:" , items);
+
+            // N.B. dependency on exisitence of _id, better way to do this?
             if (!items[0]._id) {
                 var newItem = angular.copy(items[0]);
                 newItem.title = newItem.el[0].innerText.trim();
+
                 // remove widget from DOM
                 var _grid = items[0]._grid;
                 _grid.removeWidget(items[0].el);
 
                 // add to angular model
-                console.log('pushing to widgets1');
                 var newWidget = {
                     wid: widget_id++,
                     x: newItem.x,
-                    y: newItem.y,
+                    y: angular.copy(newItem.y),
                     height: newItem.height,
                     width: newItem.width,
                     title: newItem.title
                 };
+                console.log('add to angular model - pushing to widgets:', gridNum, newWidget);
                 if (gridNum == 0) {
-                    $scope.widgets[gridNum].push(newWidget);
+                    $scope.widgets[gridNum].unshift(newWidget);
                 } else {
-                    $scope.widgets[gridNum].push(newWidget);
+                    $scope.widgets[gridNum].unshift(newWidget);
                 }
             }
         };
 
         $scope.onRemoved = function (event, items, gridNum) {
             console.log("onRemoved event: ",  event , " items:" , items);
-            if (items[0].el[0].attributes[11]) {
-                // DJH 7/22/17 - this makes no sense - getting events in gridNum 1
-                // for removal from another grid num
-                // need to make a test case for gristack project
+
+            if (items[0].el[0].attributes['data-gs-id']) {
+                // DJH 7/22/17 - this makes no sense - getting events in grid1
+                // but item is remove from grid0
+                // tested on('removed') from gristack standalone, works as expected
+                // see also console.log(items[0]._grid.container.context.id);
                 var index = _.findIndex($scope.widgets[0], function (item) {
-                    return item.wid == items[0].el[0].attributes[11].value
+                    return item.wid == items[0].el[0].attributes['data-gs-id'].value
                 });
                 if (index > -1) {
-                    console.log('!!! removing wid from widgets[0]: ', index);
+                    console.log('remove from angular - wid from widgets[0]: ', index);
                     $scope.widgets[0].splice(index, 1);
                 }
                 var index = _.findIndex($scope.widgets[1], function (item) {
-                    return item.wid == items[0].el[0].attributes[11].value
+                    return item.wid == items[0].el[0].attributes['data-gs-id'].value
                 });
                 if (index > -1) {
-                    console.log('!!! removing wid from widgets[0]', index);
+                    console.log('remove from anuglar - from widgets[0]', index);
                     $scope.widgets[1].splice(index, 1);
                 }
             }
