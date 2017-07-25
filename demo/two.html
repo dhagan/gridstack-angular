@@ -8,62 +8,259 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Challenge</title>
+    <title>gridstack-angular demo</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="lib/gridstack/dist/gridstack.css"/>
+    <link rel="stylesheet" href="lib/gridstack/dist/gridstack-extra.css"/>
 
     <style type="text/css">
-        /*
-Challenge #2:
-  -center the content horizontally
-  -provide ample spacing for readability
-        */
+        .grid0 {
+            background: lightgreen;
+            min-height: 500px;
+        }
 
+        .grid1 {
+            background: #c6ecf1;
+            min-height: 500px;
+        }
+
+        .grid2 {
+            background: lightpink;
+            min-height: 500px;
+        }
+
+        .grid-stack-item-content {
+            color: #2c3e50;
+            text-align: center;
+            background-color: #732145;
+        }
     </style>
 </head>
-<body>
-
-<!-- Challenge #3: -->
-<!-- Demonstrate 508 compliance in the result divs -->
-<div id="content">
-    <div>3 9 2 7 5 6 0 8 4 1</div>
-    <div>Result:</div>
-
-    <div>4 5 8 0 3 4 2 9 6 1</div>
-    <div>Result:</div>
-
-    <div>9 0 5 7 1 8 4 2 3 6</div>
-    <div>Result:</div>
+<body ng-app="GridStack" ng-controller="DemoCtrl">
+<div class="container-fluid">
+    <h1>gridstack-angular demo</h1>
+    <p>{{widgets[0]}}</p>
+    <p>{{widgets[1]}}</p>
+    <p>{{widgets[2]}}</p>
+    <div>
+        <a class="btn btn-primary" ng-click="addWidget(0)" href="#">Add Widget 0 </a>
+        <!--<a class="btn btn-primary" ng-click="removeWidget(0)" href="#">Remove Widget 0 </a>-->
+        <!--<a class="btn btn-primary" ng-click="moveWidget(0)" href="#">Move Widget 0</a>-->
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-xs-4 col-md-4">
+            <div gridstack class="grid-stack grid-stack-4 grid0" options="options" on-change="onChange(event,items)"
+                 on-added="onAdded(event,items, 0)" on-removed="onRemoved(event,items, 0)"
+                 on-drag-start="onDragStart(event,ui)" on-drag-stop="onDragStop(event,ui)"
+                 on-resize-start="onResizeStart(event,ui)" on-resize-stop="onResizeStop(event,ui)">
+                <div gridstack-item ng-repeat="w in widgets[0]" class="grid-stack-item" gs-item-id="w.wid"
+                     gs-item-x="w.x"
+                     gs-item-y="w.y"
+                     gs-item-width="w.width" gs-item-height="w.height"
+                     on-item-added="onItemAdded(item)" on-item-removed="onItemRemoved(item)">
+                    <div class="grid-stack-item-content">
+                        <a class="btn btn-primary" ng-click="removeWidget(w, 0)" href="#">{{w.title}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4 col-md-4">
+            <div gridstack class="grid-stack grid-stack-4 grid1" options="options" on-change="onChange(event,items)"
+                 on-added="onAdded(event,items,1)" on-removed="onRemoved(event,items,1)"
+                 on-drag-start="onDragStart(event,ui)"
+                 on-drag-stop="onDragStop(event,ui)" on-resize-start="onResizeStart(event,ui)"
+                 on-resize-stop="onResizeStop(event,ui)">
+                <div gridstack-item ng-repeat="w in widgets[1]" class="grid-stack-item" gs-item-id="w.wid"
+                     gs-item-x="w.x"
+                     gs-item-y="w.y"
+                     gs-item-width="w.width" gs-item-height="w.height"
+                     on-item-added="onItemAdded(item)" on-item-removed="onItemRemoved(item)">
+                    <div class="grid-stack-item-content">
+                        <a class="btn btn-primary" ng-click="removeWidget(w, 1)" href="#">{{w.title}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4 col-md-4">
+            <div gridstack class="grid-stack grid-stack-4 grid2" options="options" on-change="onChange(event,items)"
+                 on-added="onAdded(event,items,2)" on-removed="onRemoved(event,items,1)"
+                 on-drag-start="onDragStart(event,ui)"
+                 on-drag-stop="onDragStop(event,ui)" on-resize-start="onResizeStart(event,ui)"
+                 on-resize-stop="onResizeStop(event,ui)">
+                <div gridstack-item ng-repeat="w in widgets[2]" class="grid-stack-item" gs-item-id="w.wid"
+                     gs-item-x="w.x"
+                     gs-item-y="w.y"
+                     gs-item-width="w.width" gs-item-height="w.height"
+                     on-item-added="onItemAdded(item)" on-item-removed="onItemRemoved(item)">
+                    <div class="grid-stack-item-content">
+                        <a class="btn btn-primary" ng-click="removeWidget(w, 2)" href="#">{{w.title}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/jquery-ui/jquery-ui.js"></script>
 <script src="bower_components/lodash/dist/lodash.min.js"></script>
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="lib/gridstack/dist/gridstack.js"></script>
+<script src="lib/gridstack/dist/gridstack.jQueryUI.js"></script>
+<script src="../src/gridstack.controller.js"></script>
+<script src="../src/gridstack.directive.js"></script>
+<script src="../src/gridstackitem.directive.js"></script>
 
 <script type="text/javascript">
-  // Challenge #1: find the smallest three numbers in each of the divs, insert the result to the corresponding result div sections
-  // Requirements:
-  //  -only traverse each list of numbers once
-  //  -the solution should work with any number of groups in the div #content
-  //  -code should be clean, efficient, and self-documenting
-  //  -jquery and underscore are pre-loaded, demonstrate at least one efficient usage of each
+  var app = angular.module('GridStack', ['gridstack-angular']).controller('DemoCtrl', function ($scope, $log) {
 
-  function main() {
-    var content_values = $('#content').children().filter(function() {
-      debugger;
-      return this.value !== 'Result:';
-    }).text();
-    console.log(content_values);
-    smallestThreeSum(content_values)
-  }
-  function smallestThreeSum(nums){
+    var widget_id = 1;
+    $scope.widgets = [
+      [
+        {
+          wid: widget_id++, x: 0, y: 0, width: 4, height: 1, title: 'one'
+        },
+        {
+          wid: widget_id++, x: 0, y: 0, width: 4, height: 1, title: 'two'
+        },
+        {
+          wid: widget_id++, x: 0, y: 0, width: 4, height: 1, title: 'three'
+        },
+        {
+          wid: widget_id++, x: 0, y: 0, width: 4, height: 1, title: 'four'
+        }
+      ],
+      [], // grid1 empty
+      []  // grid2 empty
+    ];
 
-    var values = nums.split(' ');
-    var results = _(values).sortBy().take(3).value();
-    console.log(results);
+    $scope.options = {
+      //animate: true,
+      oneColumnMode: true,
+      disableResize: true,
+      width: 4,
+      cellHeight: 100,
+      verticalMargin: 5,
+      acceptWidgets: '.grid-stack-item'
+    };
 
-  }
 
- main();
+    $scope.addWidget = function (gridNum) {
+      var newWidget = {wid: widget_id++, x: 0, y: 0, width: 4, height: 1, title: 'Your new task'};
+      $scope.widgets[gridNum].push(newWidget);
+    };
 
+    $scope.moveWidget = function (gridNum) {
+      $scope.widgets[gridNum][0].x = 1;
+      $scope.widgets[gridNum][0].width = 2;
+      $scope.widgets[gridNum][0].height = 2;
+    };
+
+    $scope.removeWidget = function (w, gridNum) {
+      var index = $scope.widgets[gridNum].indexOf(w);
+      $scope.widgets[gridNum].splice(index, 1);
+    };
+
+
+    $scope.onChange = function (event, items) {
+      $log.log("onChange event: " + event + " items:" + items);
+      //$log.log(event);
+      //$log.log(items);
+    };
+
+    // DJH
+    $scope.onAdded = function (event, items, gridNum) {
+      $log.log("onAdded event: ", event, " items:", items);
+
+      // TODO dependency on existence of _id, better way to do this?
+      if (!items[0]._id) {
+        var newItem = angular.copy(items[0]);
+        newItem.title = newItem.el[0].innerText.trim();
+
+        // remove widget from DOM
+        var _grid = items[0]._grid;
+        _grid.removeWidget(items[0].el);
+
+        // add to angular model
+        var newWidget = {
+          wid: widget_id++,
+          x: newItem.x,
+          y: angular.copy(newItem.y),
+          height: newItem.height,
+          width: newItem.width,
+          title: newItem.title
+        };
+        console.log('add to angular model - pushing to widgets:', gridNum, newWidget);
+        if (gridNum == 0) {
+          $scope.widgets[gridNum].unshift(newWidget);
+        } else {
+          $scope.widgets[gridNum].unshift(newWidget);
+        }
+      }
+    };
+
+    $scope.onRemoved = function (event, items, gridNum) {
+      console.log("onRemoved event: ", event, " items:", items);
+
+      if (!items[0].el[0]) {
+        // likely not a gs-item, short circuit
+        return;
+      }
+
+      if (!items[0].el[0].attributes['data-gs-item-id']) {
+        // likely not a gs-item, short circuit
+        return;
+      }
+
+      if (items[0].el[0].attributes['data-gs-item-id']) {
+        // DJH 7/22/17 - this makes no sense - getting events on grid1
+        // but item is remove from grid0
+        // tested on('removed') from gristack standalone, works as expected
+        // see also console.log(items[0]._grid.container.context.id);
+
+        for (var i = 0; i < $scope.widgets.length; i++) {
+          var index = _.findIndex($scope.widgets[i], function (item) {
+            return item.wid == items[0].el[0].attributes['data-gs-item-id'].value
+          });
+          if (index > -1) {
+            console.log('remove from angular - wid from widgets[' + i + ' ]: ', index);
+            $scope.widgets[i].splice(index, 1);
+          }
+        }
+
+      }
+    };
+
+
+    $scope.onDragStart = function (event, ui) {
+      $log.log("onDragStart event: " + event + " ui:" + ui);
+    };
+
+    $scope.onDragStop = function (event, ui) {
+      $log.log("onDragStop event: " + event + " ui:" + ui);
+    };
+
+    $scope.onResizeStart = function (event, ui) {
+      $log.log("onResizeStart event: " + event + " ui:" + ui);
+    };
+
+    $scope.onResizeStop = function (event, ui) {
+      $log.log("onResizeStop event: " + event + " ui:" + ui);
+    };
+
+    $scope.onItemAdded = function (item) {
+      $log.log("onItemAdded item: " + item);
+    };
+
+    $scope.onItemRemoved = function (item) {
+      console.log("onItemRemoved item: ", item);
+      //item.el[0].attributes[11].id;
+      // console.log(item);
+    };
+
+  });
 </script>
 
 </body>
