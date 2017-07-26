@@ -27,23 +27,27 @@
 </head>
 <body>
 
-<h1>Code Challenge</h1>
 <!-- Challenge #3: -->
 <!-- Demonstrate 508 compliance in the result divs -->
 <div id="content" class="center">
     <div>3 9 2 7 5 6 0 8 4 1</div>
-    <div>Result:</div>
+    <div>Result:<noscript>We're sorry, unable to show result without javascript.</noscript></div>
 
     <div>4 5 8 0 3 4 2 9 6 1</div>
-    <div>Result:</div>
+    <div>Result:<noscript>We're sorry, unable to show result without javascript.</noscript></div>
 
     <div>9 0 5 7 1 8 4 2 3 6</div>
-    <div>Result:</div>
+    <div>Result:<noscript>We're sorry, unable to show result without javascript.</noscript></div>
 </div>
 
 
-<script src="bower_components/jquery/dist/jquery.min.js"></script>
-<script src="bower_components/lodash/dist/lodash.min.js"></script>
+
+<!--<script src="bower_components/jquery/dist/jquery.min.js"></script>-->
+<!--<script src="bower_components/lodash/dist/lodash.min.js"></script>-->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+
 
 <script type="text/javascript">
   // Challenge #1: find the smallest three numbers in each of the divs, insert the result to the corresponding result div sections
@@ -54,7 +58,7 @@
   //  -jquery and underscore are pre-loaded, demonstrate at least one efficient usage of each
 
   /***
-   * main()
+   * main
    *
    */
   function main() {
