@@ -1,0 +1,165 @@
+/* https://stackoverflow.com/questions/41593052/bootstrap-3-dealing-with-difference-between-xs-and-sm */
+/* Specifically landscape phones */
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+
+    .col-xsl-1, .col-xsl-2, .col-xsl-3, .col-xsl-4, .col-xsl-5, .col-xsl-6, .col-xsl-7, .col-xsl-8, .col-xsl-9, .col-xsl-10, .col-xsl-11, .col-xsl-12 {
+        float: left;
+        position: relative;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+    .col-xsl-12 {
+        width: 100%;
+    }
+    .col-xsl-11 {
+        width: 91.66666667%;
+    }
+    .col-xsl-10 {
+        width: 83.33333333%;
+    }
+    .col-xsl-9 {
+        width: 75%;
+    }
+    .col-xsl-8 {
+        width: 66.66666667%;
+    }
+    .col-xsl-7 {
+        width: 58.33333333%;
+    }
+    .col-xsl-6 {
+        width: 50%;
+    }
+    .col-xsl-5 {
+        width: 41.66666667%;
+    }
+    .col-xsl-4 {
+        width: 33.33333333%;
+    }
+    .col-xsl-3 {
+        width: 25%;
+    }
+    .col-xsl-2 {
+        width: 16.66666667%;
+    }
+    .col-xsl-1 {
+        width: 8.33333333%;
+    }
+    .col-xsl-pull-12 {
+        right: 100%;
+    }
+    .col-xsl-pull-11 {
+        right: 91.66666667%;
+    }
+    .col-xsl-pull-10 {
+        right: 83.33333333%;
+    }
+    .col-xsl-pull-9 {
+        right: 75%;
+    }
+    .col-xsl-pull-8 {
+        right: 66.66666667%;
+    }
+    .col-xsl-pull-7 {
+        right: 58.33333333%;
+    }
+    .col-xsl-pull-6 {
+        right: 50%;
+    }
+    .col-xsl-pull-5 {
+        right: 41.66666667%;
+    }
+    .col-xsl-pull-4 {
+        right: 33.33333333%;
+    }
+    .col-xsl-pull-3 {
+        right: 25%;
+    }
+    .col-xsl-pull-2 {
+        right: 16.66666667%;
+    }
+    .col-xsl-pull-1 {
+        right: 8.33333333%;
+    }
+    .col-xsl-pull-0 {
+        right: auto;
+    }
+    .col-xsl-push-12 {
+        left: 100%;
+    }
+    .col-xsl-push-11 {
+        left: 91.66666667%;
+    }
+    .col-xsl-push-10 {
+        left: 83.33333333%;
+    }
+    .col-xsl-push-9 {
+        left: 75%;
+    }
+    .col-xsl-push-8 {
+        left: 66.66666667%;
+    }
+    .col-xsl-push-7 {
+        left: 58.33333333%;
+    }
+    .col-xsl-push-6 {
+        left: 50%;
+    }
+    .col-xsl-push-5 {
+        left: 41.66666667%;
+    }
+    .col-xsl-push-4 {
+        left: 33.33333333%;
+    }
+    .col-xsl-push-3 {
+        left: 25%;
+    }
+    .col-xsl-push-2 {
+        left: 16.66666667%;
+    }
+    .col-xsl-push-1 {
+        left: 8.33333333%;
+    }
+    .col-xsl-push-0 {
+        left: auto;
+    }
+    .col-xsl-offset-12 {
+        margin-left: 100%;
+    }
+    .col-xsl-offset-11 {
+        margin-left: 91.66666667%;
+    }
+    .col-xsl-offset-10 {
+        margin-left: 83.33333333%;
+    }
+    .col-xsl-offset-9 {
+        margin-left: 75%;
+    }
+    .col-xsl-offset-8 {
+        margin-left: 66.66666667%;
+    }
+    .col-xsl-offset-7 {
+        margin-left: 58.33333333%;
+    }
+    .col-xsl-offset-6 {
+        margin-left: 50%;
+    }
+    .col-xsl-offset-5 {
+        margin-left: 41.66666667%;
+    }
+    .col-xsl-offset-4 {
+        margin-left: 33.33333333%;
+    }
+    .col-xsl-offset-3 {
+        margin-left: 25%;
+    }
+    .col-xsl-offset-2 {
+        margin-left: 16.66666667%;
+    }
+    .col-xsl-offset-1 {
+        margin-left: 8.33333333%;
+    }
+    .col-xsl-offset-0 {
+        margin-left: 0;
+    }
+}

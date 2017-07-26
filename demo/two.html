@@ -11,6 +11,7 @@
     <title>gridstack-angular demo</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/boards.css"/>
     <link rel="stylesheet" href="lib/gridstack/dist/gridstack.css"/>
     <link rel="stylesheet" href="lib/gridstack/dist/gridstack-extra.css"/>
 
@@ -50,8 +51,8 @@
     </div>
     <br>
     <div class="row">
-        <div class="col-xs-4 col-md-4">
-            <div gridstack class="grid-stack grid-stack-4 grid0" options="options" on-change="onChange(event,items)"
+        <div class="col-xsl-2 col-xs-2 col-md-2">
+            <div gridstack class="grid-stack grid-stack-2 grid0" options="options" on-change="onChange(event,items)"
                  on-added="onAdded(event,items, 0)" on-removed="onRemoved(event,items, 0)"
                  on-drag-start="onDragStart(event,ui)" on-drag-stop="onDragStop(event,ui)"
                  on-resize-start="onResizeStart(event,ui)" on-resize-stop="onResizeStop(event,ui)">
@@ -66,8 +67,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-4 col-md-4">
-            <div gridstack class="grid-stack grid-stack-4 grid1" options="options" on-change="onChange(event,items)"
+        <div class="col-xsl-2 col-xs-2 col-md-2">
+            <div gridstack class="grid-stack grid-stack-2 grid1" options="options" on-change="onChange(event,items)"
                  on-added="onAdded(event,items,1)" on-removed="onRemoved(event,items,1)"
                  on-drag-start="onDragStart(event,ui)"
                  on-drag-stop="onDragStop(event,ui)" on-resize-start="onResizeStart(event,ui)"
@@ -83,8 +84,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-4 col-md-4">
-            <div gridstack class="grid-stack grid-stack-4 grid2" options="options" on-change="onChange(event,items)"
+        <div class="col-xsl-2 col-xs-2 col-md-2">
+            <div gridstack class="grid-stack grid-stack-2 grid2" options="options" on-change="onChange(event,items)"
                  on-added="onAdded(event,items,2)" on-removed="onRemoved(event,items,1)"
                  on-drag-start="onDragStart(event,ui)"
                  on-drag-stop="onDragStop(event,ui)" on-resize-start="onResizeStart(event,ui)"
@@ -120,16 +121,16 @@
     $scope.widgets = [
       [
         {
-          wid: widget_id++, x: 0, y: 0, width: 4, height: 1, title: 'one'
+          wid: widget_id++, x: 0, y: 0, width: 2, height: 1, title: 'one'
         },
         {
-          wid: widget_id++, x: 0, y: 0, width: 4, height: 1, title: 'two'
+          wid: widget_id++, x: 0, y: 0, width: 2, height: 1, title: 'two'
         },
         {
-          wid: widget_id++, x: 0, y: 0, width: 4, height: 1, title: 'three'
+          wid: widget_id++, x: 0, y: 0, width: 2, height: 1, title: 'three'
         },
         {
-          wid: widget_id++, x: 0, y: 0, width: 4, height: 1, title: 'four'
+          wid: widget_id++, x: 0, y: 0, width: 2, height: 1, title: 'four'
         }
       ],
       [], // grid1 empty
@@ -148,14 +149,14 @@
 
 
     $scope.addWidget = function (gridNum) {
-      var newWidget = {wid: widget_id++, x: 0, y: 0, width: 4, height: 1, title: 'Your new task'};
+      var newWidget = {wid: widget_id++, x: 0, y: 0, width: 2, height: 1, title: 'Your new task'};
       $scope.widgets[gridNum].push(newWidget);
     };
 
     $scope.moveWidget = function (gridNum) {
       $scope.widgets[gridNum][0].x = 1;
       $scope.widgets[gridNum][0].width = 2;
-      $scope.widgets[gridNum][0].height = 2;
+      $scope.widgets[gridNum][0].height = 1;
     };
 
     $scope.removeWidget = function (w, gridNum) {
