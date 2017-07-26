@@ -13,11 +13,11 @@
     <style type="text/css">
 
         /* Challenge #2:
-  -center the content horizontally
-  -provide ample spacing for readability
+            -center the content horizontally
+            -provide ample spacing for readability
         */
 
-        div {
+        center {
             margin: auto;
             padding: 10px;
             text-align: center;
@@ -31,15 +31,18 @@
 <!-- Demonstrate 508 compliance in the result divs -->
 <div id="content" class="center">
     <div>3 9 2 7 5 6 0 8 4 1</div>
-    <div>Result:<noscript>We're sorry, unable to show result without javascript.</noscript></div>
+    <div>Result:</div>
+    <noscript>We're sorry, unable to show result without javascript.</noscript>
 
     <div>4 5 8 0 3 4 2 9 6 1</div>
-    <div>Result:<noscript>We're sorry, unable to show result without javascript.</noscript></div>
+    <div>Result:</div>
+    <noscript>We're sorry, unable to show result without javascript.</noscript>
 
     <div>9 0 5 7 1 8 4 2 3 6</div>
-    <div>Result:<noscript>We're sorry, unable to show result without javascript.</noscript></div>
-</div>
+    <div>Result:</div>
+    <noscript>We're sorry, unable to show result without javascript.</noscript>
 
+</div>
 
 
 <!--<script src="bower_components/jquery/dist/jquery.min.js"></script>-->
@@ -57,7 +60,7 @@
   //  -code should be clean, efficient, and self-documenting
   //  -jquery and underscore are pre-loaded, demonstrate at least one efficient usage of each
 
-  /***
+  /**
    * main
    *
    */
@@ -66,71 +69,64 @@
     var lastResult;
     $.each($('#content').children(), function (index, row) {
       // TODO consider more robust exclusion of 'data' divs
-      if ( row.innerText !== 'Result:') {
-        lastResult = smallestThreeSum(row.innerText);
+      var row_text = row.innerText.trim();
+      if (row_text !== 'Result:') {
+        lastResult = smallestThreeSum(row_text);
       } else {
-        row.innerText = row.innerText + ' ' + lastResult;
+        row.innerText = row_text + ' ' + lastResult;
       }
     });
   }
 
-  /***
+  /**
    * Pseudo code suggests that it return the sum - e.g. _.reduce()
    * however specification says find the 3 smallest, so opted to go with the spec
    *
-   * @param nums
+   * @param row_str
    */
-  function smallestThreeSum(nums){
-    var values = nums.split(' ');
-    if (nums.length < 3) {
+  function smallestThreeSum(row_str) {
+    var nums = row_str.split(' ');
+    if (row_str.length < 3) {
       return 'Invalid array length';
     }
 
-    // N.B. sorting items as String not Number
-    // TODO consider more efficient lodash - not sorting
-    //var results = _(values).sortBy().take(3).value();
-    var results = _(smallestThree(values)).take(3);
+    // lodash sorting items as String not Number
+    // var results = _(values).sortBy().take(3).value();
 
-    console.log(results);
+    var results = smallestThree(nums);
+
     return results.join(' ');
   }
 
-  function smallestThree(a) {
-    var min0 = a[0];
-    var min1 = a[1];
-    var min2 = a[2];
-
-    if (min1 < min0) {
-      min0 = a[1];
-      min1 = a[0];
-    }
-
-    if (min2 < min1) {
-      min1 = a[2];
-      min2 = a[1];
-    }
-
-    for (var i = 2; i < a.length; i++)
-    {
-      if (a[i] < min0) {
+  /**
+   * lodash sort is not a single traversal - so here we go
+   *
+   * @param nums
+   * @returns {[null,null,null]}
+   */
+  function smallestThree(nums) {
+    var min0 = Number.MAX_VALUE,
+      min1 = Number.MAX_VALUE,
+      min2 = Number.MAX_VALUE;
+    _.forEach(nums, function (num) {
+      num = parseInt(num);
+      if (num < min0) {
         min2 = min1;
         min1 = min0;
-        min0 = a[i];
+        min0 = num;
       }
-      else if (a[i] < min1) {
+      else if (num < min1) {
         min2 = min1;
-        min1 = a[i];
+        min1 = num;
       }
-      else if (a[i] < min2) {
-        min2 = a[i];
+      else if (num < min2) {
+        min2 = num;
       }
-    }
-
+    });
     return [min0, min1, min2];
-
   }
 
-  $(function() {
+  $(function () {
     main();
   });
 
