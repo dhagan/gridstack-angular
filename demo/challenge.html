@@ -82,12 +82,52 @@
    */
   function smallestThreeSum(nums){
     var values = nums.split(' ');
+    if (nums.length < 3) {
+      return 'Invalid array length';
+    }
 
     // N.B. sorting items as String not Number
     // TODO consider more efficient lodash - not sorting
-    var results = _(values).sortBy().take(3).value();
+    //var results = _(values).sortBy().take(3).value();
+    var results = _(smallestThree(values)).take(3);
+
     console.log(results);
     return results.join(' ');
+  }
+
+  function smallestThree(a) {
+    var min0 = a[0];
+    var min1 = a[1];
+    var min2 = a[2];
+
+    if (min1 < min0) {
+      min0 = a[1];
+      min1 = a[0];
+    }
+
+    if (min2 < min1) {
+      min1 = a[2];
+      min2 = a[1];
+    }
+
+    for (var i = 2; i < a.length; i++)
+    {
+      if (a[i] < min0) {
+        min2 = min1;
+        min1 = min0;
+        min0 = a[i];
+      }
+      else if (a[i] < min1) {
+        min2 = min1;
+        min1 = a[i];
+      }
+      else if (a[i] < min2) {
+        min2 = a[i];
+      }
+    }
+
+    return [min0, min1, min2];
+
   }
 
   $(function() {
